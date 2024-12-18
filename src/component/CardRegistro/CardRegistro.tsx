@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {} from './CardRegistro.css'
-function cardsRegistro(props:{DNI: number, Nombre: string, Apellido: string, Area: string, Categoria: string}[], handlerOnPresente: (dni: number) => void) {
+function CardsRegistro(props:{DNI: number, Nombre: string, Apellido: string, Area: string, Categoria: string}[], handlerOnPresente: (dni: number) => void) {
   return (
     props.map((item) => (
         <div className="card container text-center " key={item.DNI}>
@@ -22,4 +22,4 @@ function cardsRegistro(props:{DNI: number, Nombre: string, Apellido: string, Are
     )
     ))
 }
-export default cardsRegistro;
+export default CardsRegistro;

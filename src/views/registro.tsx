@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import cardsRegistro from "../component/CardRegistro";
-
+import CardsRegistro from "../component/CardRegistro/CardRegistro";
+import ModalAusente from "../component/Modal/ModalAusente"
 function registroPresentismo() {
     const [nomina, setData] = useState([{DNI: 0, Nombre: '', Apellido: '', Area: '', Categoria: ''}]);
-
+    
     useEffect(() => {
       fetch('http://localhost:3000/nomina')
         .then((response) => response.json())
         .then((nomina) => {
-          console.log(nomina);
           setData(nomina);
         });
     }, []);
@@ -26,7 +25,10 @@ function registroPresentismo() {
         });
     }
     return (
-        cardsRegistro(nomina, handlerOnPresente)
+        <>
+            {ModalAusente()}
+            {CardsRegistro(nomina, handlerOnPresente)}
+        </>
     );
 }
 export default registroPresentismo;

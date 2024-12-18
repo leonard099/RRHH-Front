@@ -6,7 +6,6 @@ import registroPresentismo from './views/registro'
 function App() {
 
   return (
-    console.log("hola"),
     registroPresentismo()
   )
 }
