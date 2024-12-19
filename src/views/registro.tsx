@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CardsRegistro from "../component/CardRegistro/CardRegistro";
-import ModalAusente from "../component/Modal/ModalAusente"
 function registroPresentismo() {
     const [nomina, setData] = useState([{DNI: 0, Nombre: '', Apellido: '', Area: '', Categoria: ''}]);
     
@@ -22,12 +21,35 @@ function registroPresentismo() {
         }).then((response) => response.json())
         .then((data) => {
             console.log(data);
-        });
+        })
+        .catch(() => {
+            alert('Error al registrar la asistencia');
+        })
+    }
+    const handlerOnAusente = async (dni: number, razon:string|null, justificado:boolean, event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        console.log(dni, razon, justificado);
+        if (razon === null) {
+            alert('Debe seleccionar una razon');
+            return;
+        }
+        await fetch ('http://localhost:3000/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({DNI: dni, estado: 'ausente', razon: razon, justificado: justificado}),
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch(() => {
+            alert('Error al registrar la asistencia');
+        })
     }
     return (
         <>
-            {ModalAusente()}
-            {CardsRegistro(nomina, handlerOnPresente)}
+            {CardsRegistro(nomina, handlerOnPresente, handlerOnAusente)}
         </>
     );
 }
